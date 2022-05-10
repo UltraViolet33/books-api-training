@@ -1,15 +1,7 @@
-fetch("http://api-php.test/")
-  .then(function (res) {
-    if (res.ok) {
-      return res.json();
-    }
-  })
-  .then(function (value) {
-    booksHTML = displayBooks(value);
-  })
-  .catch(function (err) {
-    // Une erreur est survenue
-  });
+fetch(urlAPI)
+  .then((res) => res.json())
+  .then((books) => displayBooks(books))
+  .catch((err) => displayError());
 
 const displayBooks = (books) => {
   const booksHTML = books.map((book) => {
@@ -32,4 +24,12 @@ const displayBooks = (books) => {
   for (let book of booksHTML) {
     books_div.innerHTML += book;
   }
+};
+
+const displayError = () => {
+  const danger_div = document.getElementById("error");
+  danger_div.classList.add("p-3");
+  const error_para = document.getElementById("error_text");
+  error_para.textContent =
+    "An error occured, please check your internet connexion";
 };
