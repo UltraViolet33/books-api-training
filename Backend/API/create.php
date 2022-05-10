@@ -13,7 +13,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 $errorMesg = array('message' => "Error, book not created");
 
-if (!isset($data->author) || !isset($data->title)) {
+if (empty($data->author) || empty($data->title)) {
     echo json_encode($errorMesg);
     return;
 }
