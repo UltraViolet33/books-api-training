@@ -36,7 +36,7 @@ class Book
                 $bookArray['id_book'] = $id_books;
                 $bookArray['title'] = $title;
                 $bookArray['author'] = $author;
-                $bookArray['idRead'] = $isRead;
+                $bookArray['isRead'] = $isRead;
                 $bookArray['categories'] = [$name];
                 array_push($booksArray, $bookArray);
             }

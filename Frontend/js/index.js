@@ -1,27 +1,24 @@
 fetch(urlAPI)
   .then((res) => res.json())
   .then((books) => displayBooks(books))
-  .catch((err) => displayError());
+  .catch(() => displayError());
 
 const displayBooks = (books) => {
   const booksHTML = books.map((book) => {
-    let isRead = "";
-    isRead = book.isRead ? "Terminé" : "Pas terminé";
-    let html = "";
-    html += '<div class="card" style="width: 18rem;">';
+    let isRead = book.isRead ? "Terminé" : "Pas terminé";
+    let html = '<div class="col-10 col-md-6 col-lg-4 my-3">';
+    html += '<div class="card my-3" style="width: 20rem;">';
     html += '<div class="card-body">';
     html += `<h4 class='card-title'>Titre : ${book.title}</h5>`;
     html += `<h5 class='card-title'>Author : ${book.author}</h5>`;
-    html += ' <a href="#" class="btn btn-primary">See details</a>';
-    html += `<h5 class='card-title'>${isRead}</h5>`;
-    html += " </div></div>";
-
+    html += `<h5 class='card-title'>Status : ${isRead}</h5>`;
+    html += " </div></div></div>";
     return html;
   });
 
-  let books_div = document.getElementById("books");
+  const books_div = document.getElementById("books");
 
-  for (let book of booksHTML) {
+  for (const book of booksHTML) {
     books_div.innerHTML += book;
   }
 };
