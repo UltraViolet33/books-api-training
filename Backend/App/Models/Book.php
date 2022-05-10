@@ -6,26 +6,24 @@ use App\config\Database;
 
 class Book
 {
-    private $db;
-    private  string  $title;
-    private string $author;
-    private bool $isRead;
-    private array $categories;
+    private Database $db;
 
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
-
-    public function getAllBooks()
+    
+    /**
+     * getAllBooks
+     *
+     * @return array
+     */
+    public function getAllBooks(): array
     {
         $query = "SELECT * FROM books INNER JOIN books_categories ON books.id_books = books_categories.id_books INNER JOIN categories ON books_categories.id_categories = categories.id_categories";
-        // $query = "SELECT * FROM books";
+
         $books = $this->db->read($query);
-
         $booksArray = [];
-        //   var_dump($books);
-
 
         $id = -1;
         foreach ($books as $book) {

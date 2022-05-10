@@ -7,13 +7,13 @@ use \PDO;
 class Database
 {
 
-  private $PDOInstance = null;
-  private static $instance = null;
-  private $type = "mysql";
-  private $host = "localhost";
-  private $dbName = "api-php";
-  private $user = "root";
-  private $password = "";
+  private ?PDO $PDOInstance = null;
+  private static ?self $instance = null;
+  private string $type = "mysql";
+  private string $host = "localhost";
+  private string $dbName = "api-php";
+  private string $user = "root";
+  private string $password = "";
 
   private function __construct()
   {
@@ -23,11 +23,10 @@ class Database
     ]);
   }
 
-
   /**
    * get the pdo instance
    */
-  public static function getInstance()
+  public static function getInstance(): self
   {
     if (is_null(self::$instance)) {
       self::$instance = new Database();
@@ -35,15 +34,21 @@ class Database
     return self::$instance;
   }
 
-  public static function getNewInstance()
+
+  public static function getNewInstance(): self
   {
     return new Database();
   }
 
   /**
-   * read on the BDD
+   * read
+   *
+   * @param  string $query
+   * @param  array $data
+   * @param  int $method
+   * @return array
    */
-  public function read($query, $data = array(), $method = PDO::FETCH_ASSOC)
+  public function read(string $query,  array $data = array(), int $method = PDO::FETCH_ASSOC): array
   {
     $statement = $this->PDOInstance->prepare($query);
     $result = $statement->execute($data);
@@ -57,10 +62,15 @@ class Database
     return false;
   }
 
+
   /**
-   * write on the BDD
+   * write
+   *
+   * @param  string $query
+   * @param  array $data
+   * @return bool
    */
-  public function write($query, $data = array())
+  public function write(string $query, array $data = array()): bool
   {
     $statement = $this->PDOInstance->prepare($query);
     $result = $statement->execute($data);
@@ -71,9 +81,11 @@ class Database
   }
 
   /**
-   * return the last id inserted
+   * getLastInsertId
+   *
+   * @return int
    */
-  public function getLastInsertId()
+  public function getLastInsertId(): int
   {
     return $this->PDOInstance->lastInsertId();
   }
