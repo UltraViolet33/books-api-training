@@ -46,9 +46,9 @@ class Database
    * @param  string $query
    * @param  array $data
    * @param  int $method
-   * @return array
+   * @return bool|array
    */
-  public function read(string $query,  array $data = array(), int $method = PDO::FETCH_ASSOC): array
+  public function read(string $query,  array $data = array(), int $method = PDO::FETCH_ASSOC): bool|array
   {
     $statement = $this->PDOInstance->prepare($query);
     $result = $statement->execute($data);

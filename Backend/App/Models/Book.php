@@ -71,4 +71,25 @@ class Book
         $query = "INSERT INTO books_categories SET id_books = $bookId, id_categories = 1";
         return $this->db->write($query);
     }
+    
+
+    /**
+     * getOneBook
+     *
+     * @param  int $idBook
+     * @return bool|array
+     */
+    public function getOneBook(int $idBook): bool|array
+    {
+        $query = "SELECT * FROM books 
+        INNER JOIN books_categories 
+        ON books.id_books = books_categories.id_books 
+        INNER JOIN categories 
+        ON books_categories.id_categories = categories.id_categories 
+        WHERE books.id_books = :idBook";
+
+        $data['idBook'] = $idBook;
+
+        return $this->db->read($query, $data);
+    }
 }
