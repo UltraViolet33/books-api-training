@@ -74,6 +74,7 @@ class Database
   {
     $statement = $this->PDOInstance->prepare($query);
     $result = $statement->execute($data);
+
     if ($result) {
       return true;
     }

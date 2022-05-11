@@ -93,4 +93,25 @@ class Book
 
         return $book;
     }
+
+    /**
+     * updateBook
+     *
+     * @param  string $title
+     * @param  string $author
+     * @param  int $idBook
+     * @return bool
+     */
+    public function updateBook(string $title, string $author, int $idBook): bool
+    {
+        $query  = "UPDATE books SET title = :title, author = :author WHERE id_books = :idBook";
+
+        $data['idBook'] = $idBook;
+
+        $data['title'] = $title;
+        $data['author'] = $author;
+        $result = $this->db->write($query, $data);
+
+        return $result;
+    }
 }

@@ -29,15 +29,16 @@ const displaySuccessMsg = (message) => {
   success_para.textContent = message;
 };
 
-const postData = (data) => {
-  fetch(urlAPI + "create.php", {
+const postData = (data, path) => {
+  console.log(urlAPI + path);
+  fetch(urlAPI + path, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
     },
     body: JSON.stringify(data),
   })
-    .then((reponse) => reponse.json())
+    .then((response) => response.json())
     .then((response) => displaySuccessMsg(response.message));
 };
 

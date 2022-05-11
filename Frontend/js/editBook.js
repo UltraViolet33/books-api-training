@@ -15,3 +15,14 @@ const putValueInput = (book) => {
   const title_input = document.getElementById("title");
   title_input.value = book.title;
 };
+
+const editBook_form = document.getElementById("editBook");
+
+editBook_form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const dataForm = getValue();
+  dataForm.idBook = IDbook;
+  console.log(dataForm);
+  postData(dataForm, "update.php");
+  //postData(dataForm);
+});
