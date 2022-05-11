@@ -114,4 +114,18 @@ class Book
 
         return $result;
     }
+
+
+    /**
+     * deleteBook
+     *
+     * @param  int $idBook
+     * @return bool
+     */
+    public function deleteBook(int $idBook): bool
+    {
+        $query = "DELETE FROM books WHERE id_books = :idBook";
+        $data['idBook'] = $idBook;
+        return $this->db->write($query, $data);
+    }
 }
