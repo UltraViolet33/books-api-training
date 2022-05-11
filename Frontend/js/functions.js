@@ -47,3 +47,18 @@ const clearMessage = () => {
   const error_para = document.getElementById("error_text");
   error_para.textContent = "";
 };
+
+const extractParamsFromUrl = (nameParam) => {
+  let params = new URLSearchParams(window.location.search);
+
+  for (let p of params) {
+    if (p[0] === nameParam) {
+      if (isNaN(p[1])) {
+        return false;
+      }
+      return p[1];
+    }
+  }
+
+  return false;
+};

@@ -71,7 +71,7 @@ class Book
         $query = "INSERT INTO books_categories SET id_books = $bookId, id_categories = 1";
         return $this->db->write($query);
     }
-    
+
 
     /**
      * getOneBook
@@ -86,10 +86,11 @@ class Book
         ON books.id_books = books_categories.id_books 
         INNER JOIN categories 
         ON books_categories.id_categories = categories.id_categories 
-        WHERE books.id_books = :idBook";
+        WHERE books.id_books = :idBook LIMIT 1";
 
         $data['idBook'] = $idBook;
+        $book =  $this->db->read($query, $data);
 
-        return $this->db->read($query, $data);
+        return $book;
     }
 }

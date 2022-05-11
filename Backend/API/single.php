@@ -6,14 +6,14 @@ require("../vendor/autoload.php");
 use App\Models\Book;
 
 $errorMesg = array('message' => "Error, book not found");
-$data = json_decode(file_get_contents("php://input"));
 
-if (empty($data->idBook) || !isset($data->idBook) || !is_numeric($data->idBook)) {
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $idBook = $_GET['id'];
+} else {
     echo json_encode($errorMesg);
     return;
 }
 
-$idBook = $data->idBook;
 $book = new Book();
 $singleBook = $book->getOneBook($idBook);
 
