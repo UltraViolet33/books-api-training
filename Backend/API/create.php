@@ -9,8 +9,8 @@ use App\Models\Book;
 
 $book = new Book();
 $data = json_decode(file_get_contents("php://input"));
-$errorMesg = array('message' => "Error, book not created");
-$successMsg = array('message' => "Book creaded");
+$errorMesg = array('error' => "Error, book not created");
+$succesMsg = array('success' => "Book created");
 
 if (empty($data->author) || empty($data->title)) {
     echo json_encode($errorMesg);
@@ -18,7 +18,7 @@ if (empty($data->author) || empty($data->title)) {
 }
 
 if ($book->createBook($data->title, $data->author)) {
-    echo json_encode($successMsg);
+    echo json_encode($succesMsg);
 } else {
     echo json_encode($errorMesg);
 }

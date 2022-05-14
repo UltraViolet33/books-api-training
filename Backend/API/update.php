@@ -9,8 +9,8 @@ use App\Models\Book;
 
 $book = new Book();
 $data = json_decode(file_get_contents("php://input"));
-$errorMesg = array('message' => "Error, book not updated");
-$succesMsg = array('message' => "Book updated");
+$errorMesg = array('error' => "Error, book not updated");
+$succesMsg = array('success' => "Book updated");
 
 if (empty($data->author) || empty($data->title) || !is_numeric($data->idBook)) {
     echo json_encode($errorMesg);

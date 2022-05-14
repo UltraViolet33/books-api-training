@@ -9,16 +9,19 @@ use App\Models\Book;
 
 $book = new Book();
 $data = json_decode(file_get_contents("php://input"));
-$errorMesg = array('message' => "Error, book not deleted");
-$successMsg = array("Message" => "Book deleted");
+$errorMesg = array('error' => "Error, book not deleted");
+$succesMsg = array('success' => "Book deleted");
 
 if (empty($data->idBook) || !is_numeric($data->idBook)) {
+
     echo json_encode($errorMesg);
     return;
 }
 
 if ($book->deleteBook($data->idBook)) {
-    echo json_encode($successMsg);
+
+    echo json_encode($succesMsg);
 } else {
+
     echo json_encode($errorMesg);
 }

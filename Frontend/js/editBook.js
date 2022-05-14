@@ -24,7 +24,6 @@ editBook_form.addEventListener("submit", function (event) {
   dataForm.idBook = IDbook;
   console.log(dataForm);
   postData(dataForm, "update.php");
-  //postData(dataForm);
 });
 
 const formDelete = document.getElementById("deleteBook");
@@ -33,7 +32,6 @@ formDelete.addEventListener("submit", function (event) {
   event.preventDefault();
 
   if (confirm("Are you sure ?")) {
-    console.log("ojk");
     const data = {
       idBook: IDbook,
     };
