@@ -30,7 +30,7 @@ const displayMsgBack = (message) => {
 
   if (message.success) {
     success_para.textContent = message.success;
-    window.location.replace("http://127.0.0.1:5500/Frontend/index.html");
+
   }
   if (message.error) {
     success_para.textContent = message.error;
