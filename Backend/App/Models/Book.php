@@ -64,7 +64,6 @@ class Book
         $query = "INSERT INTO books SET title = :title, author = :author";
         $data['title'] = $title;
         $data['author'] = $author;
-
         $this->db->write($query, $data);
         $bookId = $this->db->getLastInsertId();
 
@@ -105,9 +104,7 @@ class Book
     public function updateBook(string $title, string $author, int $idBook): bool
     {
         $query  = "UPDATE books SET title = :title, author = :author WHERE id_books = :idBook";
-
         $data['idBook'] = $idBook;
-
         $data['title'] = $title;
         $data['author'] = $author;
         $result = $this->db->write($query, $data);
