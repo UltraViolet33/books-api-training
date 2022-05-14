@@ -5,4 +5,3 @@ addBook_form.addEventListener("submit", function (event) {
   const dataForm = getValue();
   postData(dataForm, "create.php");
 });
-
