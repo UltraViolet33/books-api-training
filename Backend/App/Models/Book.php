@@ -7,11 +7,17 @@ use App\config\Database;
 class Book
 {
     private Database $db;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
+
 
     /**
      * getAllBooks
@@ -20,32 +26,8 @@ class Book
      */
     public function getAllBooks(): array
     {
-        $query = "SELECT * FROM books 
-        INNER JOIN books_categories ON books.id_books = books_categories.id_books 
-        INNER JOIN categories ON books_categories.id_categories = categories.id_categories";
-        $books = $this->db->read($query);
-        $booksArray = [];
-
-        $ids = [];
-
-        foreach ($books as $book) {
-            extract($book);
-            if (array_search($id_books, $ids)) {
-                $key = array_search($id_books, array_column($booksArray, 'id_book'));
-                $booksArray[$key]['categories'][] = $name;
-            } else {
-                $bookArray = [];
-                $bookArray['id_book'] = $id_books;
-                $bookArray['title'] = $title;
-                $bookArray['author'] = $author;
-                $bookArray['isRead'] = $isRead;
-                $bookArray['categories'] = [$name];
-                array_push($booksArray, $bookArray);
-            }
-
-            $ids[] = $id_books;
-        }
-        return $booksArray;
+        $query = "SELECT * FROM books";
+        return $this->db->read($query);
     }
 
     /**

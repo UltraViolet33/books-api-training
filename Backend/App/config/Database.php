@@ -15,6 +15,12 @@ class Database
   private string $user = "root";
   private string $password = "";
 
+
+  /**
+   * __construct
+   *
+   * @return void
+   */
   private function __construct()
   {
     $string = $this->type . ":host=" . $this->host . ";dbname=" . $this->dbName;
@@ -23,8 +29,11 @@ class Database
     ]);
   }
 
+
   /**
-   * get the pdo instance
+   * getInstance
+   *
+   * @return self
    */
   public static function getInstance(): self
   {
@@ -35,10 +44,16 @@ class Database
   }
 
 
+  /**
+   * getNewInstance
+   *
+   * @return self
+   */
   public static function getNewInstance(): self
   {
     return new Database();
   }
+
 
   /**
    * read
@@ -59,6 +74,7 @@ class Database
         return $data;
       }
     }
+
     return false;
   }
 
@@ -78,8 +94,10 @@ class Database
     if ($result) {
       return true;
     }
+
     return false;
   }
+
 
   /**
    * getLastInsertId
