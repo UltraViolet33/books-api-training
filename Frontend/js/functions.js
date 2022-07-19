@@ -1,39 +1,21 @@
-const getValue = () => {
-  clearMessage();
-  title = document.getElementById("title").value;
-  author = document.getElementById("author").value;
-
-  if (title == "" || author == "") {
-    displayError("Please fill all the inputs");
-    return false;
-  }
-  data = {
-    title: title,
-    author: author,
-  };
-
-  return data;
-};
-
 const displayError = (message) => {
-  const danger_div = document.getElementById("error");
-  danger_div.classList.add("p-3");
-  const error_para = document.getElementById("error_text");
-  error_para.textContent = message;
+  const errorr_div = document.getElementById("error");
+  errorr_div.classList.add("p-3");
+  errorr_div.textContent = message;
 };
 
 const displayMsgBack = (message) => {
-  console.log(message.success);
-  const success_div = document.getElementById("success");
-  success_div.classList.add("p-3");
-  const success_para = document.getElementById("success_text");
-
   if (message.success) {
-    success_para.textContent = message.success;
-
+    document.location.href = "index.php";
+    return null;
   }
+
+  const error_div = document.getElementById("error");
+  error_div.classList.add("p-3");
+  const message_para = document.getElementById("error");
+
   if (message.error) {
-    success_para.textContent = message.error;
+    message_para.textContent = message.error;
   }
 };
 
@@ -50,10 +32,9 @@ const postData = (data, path) => {
 };
 
 const clearMessage = () => {
-  const danger_div = document.getElementById("error");
-  danger_div.classList.remove("p-3");
-  const error_para = document.getElementById("error_text");
-  error_para.textContent = "";
+  const error_div = document.getElementById("error");
+  error_div.classList.remove("p-3");
+  error_div.textContent = "";
 };
 
 const extractParamsFromUrl = (nameParam) => {

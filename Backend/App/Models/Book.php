@@ -7,7 +7,7 @@ use App\config\Database;
 class Book
 {
     private Database $db;
-    
+
     /**
      * __construct
      *
@@ -39,18 +39,10 @@ class Book
      */
     public function createBook(string $title, string $author): bool
     {
-        if (!is_string($author) && !is_string($title)) {
-            return false;
-        }
-
         $query = "INSERT INTO books SET title = :title, author = :author";
-        $data['title'] = $title;
-        $data['author'] = $author;
-        $this->db->write($query, $data);
-        $bookId = $this->db->getLastInsertId();
-
-        $query = "INSERT INTO books_categories SET id_books = $bookId, id_categories = 1";
-        return $this->db->write($query);
+        $data['title'] = htmlspecialchars($title);
+        $data['author'] = htmlspecialchars($author);
+        return $this->db->write($query, $data);
     }
 
 
