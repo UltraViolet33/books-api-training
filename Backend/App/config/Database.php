@@ -78,6 +78,53 @@ class Database
     return false;
   }
 
+    //  /**
+    //  * read
+    //  * read on the DB
+    //  * @param  string $query
+    //  * @param  array $data
+    //  * @param  bool $single
+    //  * @return array|bool
+    //  */
+    // public function read(string $query, array $data = array()): array|bool
+    // {
+    //     $statement = $this->PDOInstance->prepare($query);
+    //     $result = $statement->execute($data);
+
+    //     if ($result) {
+    //         $data = $statement->fetchAll(PDO::FETCH_OBJ);
+
+    //         if (is_array($data) && count($data) > 0) {
+    //             return $data;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+
+    /**
+     * read
+     * read on the DB
+     * @param  string $query
+     * @param  array $data
+     * @return object|bool
+     */
+    public function readOneRow(string $query, array $data = array()): object|bool
+    {
+        $statement = $this->PDOInstance->prepare($query);
+        $result = $statement->execute($data);
+
+        if ($result) {
+            $data = $statement->fetch(PDO::FETCH_OBJ);
+            if (is_object($data)) {
+                return $data;
+            }
+        }
+        return false;
+    }
+
+
+
 
   /**
    * write

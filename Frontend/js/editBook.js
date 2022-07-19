@@ -1,12 +1,12 @@
 IDbook = extractParamsFromUrl("id");
 
 if (!IDbook) {
-  displayError("Book not found");
+  document.location.href = "index.php";
 }
 
 fetch(urlAPI + "single.php?id=" + IDbook)
   .then((reponse) => reponse.json())
-  .then((response) => putValueInput(response[0]));
+  .then((response) => putValueInput(response));
 
 const putValueInput = (book) => {
   const author_input = document.getElementById("author");
@@ -14,17 +14,41 @@ const putValueInput = (book) => {
 
   const title_input = document.getElementById("title");
   title_input.value = book.title;
+
+  const status_input = document.getElementById("status");
+  book.isRead ? (status_input.checked = true) : null;
 };
 
 const editBook_form = document.getElementById("editBook");
 
 editBook_form.addEventListener("submit", function (event) {
   event.preventDefault();
-  const dataForm = getValue();
+  const dataForm = getValueEditForm();
   dataForm.idBook = IDbook;
-  console.log(dataForm);
   postData(dataForm, "update.php");
 });
+
+const getValueEditForm = () => {
+  clearMessage();
+  title = document.getElementById("title").value;
+  author = document.getElementById("author").value;
+  isRead = document.getElementById("status").checked;
+
+  if (title == "" || author == "") {
+    displayError("Please fill all the inputs");
+    return false;
+  }
+
+  data = {
+    title: title,
+    author: author,
+    isRead: isRead,
+  };
+
+  console.log(data);
+
+  return data;
+};
 
 const formDelete = document.getElementById("deleteBook");
 

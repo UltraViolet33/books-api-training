@@ -5,3 +5,4 @@ const urlAPI = "http://api-php.test/";
 let IDbook;
 let title;
 let author;
+let isRead;

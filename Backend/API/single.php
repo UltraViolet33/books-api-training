@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-require("../vendor/autoload.php");
+require "../vendor/autoload.php";
 
 use App\Models\Book;
 

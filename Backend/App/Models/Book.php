@@ -50,39 +50,29 @@ class Book
      * getOneBook
      *
      * @param  int $idBook
-     * @return bool|array
+     * @return bool|object
      */
-    public function getOneBook(int $idBook): bool|array
+    public function getOneBook(int $idBook): bool|object
     {
-        $query = "SELECT * FROM books 
-        INNER JOIN books_categories 
-        ON books.id_books = books_categories.id_books 
-        INNER JOIN categories 
-        ON books_categories.id_categories = categories.id_categories 
-        WHERE books.id_books = :idBook LIMIT 1";
-
-        $data['idBook'] = $idBook;
-        $book =  $this->db->read($query, $data);
-
+        $query = "SELECT * FROM books WHERE id_books = :idBook LIMIT 1";
+        $book =  $this->db->readOneRow($query, ["idBook" => $idBook]);
         return $book;
     }
 
     /**
      * updateBook
      *
-     * @param  string $title
-     * @param  string $author
-     * @param  int $idBook
+     * @param  object $book
      * @return bool
      */
-    public function updateBook(string $title, string $author, int $idBook): bool
+    public function updateBook(object $book): bool
     {
-        $query  = "UPDATE books SET title = :title, author = :author WHERE id_books = :idBook";
-        $data['idBook'] = $idBook;
-        $data['title'] = $title;
-        $data['author'] = $author;
+        $query  = "UPDATE books SET title = :title, author = :author, isRead = :isRead WHERE id_books = :idBook";
+        $data['idBook'] = htmlspecialchars($book->idBook);
+        $data['title'] = htmlspecialchars($book->title);
+        $data['author'] = htmlspecialchars($book->author);
+        $data['isRead'] =  $book->isRead ? 1 : 0;
         $result = $this->db->write($query, $data);
-
         return $result;
     }
 
