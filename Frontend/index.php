@@ -4,7 +4,7 @@ $script = 'index.js';
 <div class="container my-3">
     <div class="row">
         <div class="col-12 my-3">
-            <h1 class="text-center">My Books</h1>
+            <h1 class="text-center">My Bks</h1>
         </div>
     </div>
     <div class="row justify-content-around" id="books">

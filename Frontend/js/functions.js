@@ -10,12 +10,13 @@ const displayMsgBack = (message) => {
     return null;
   }
 
-  const error_div = document.getElementById("error");
-  error_div.classList.add("p-3");
-  const message_para = document.getElementById("error");
-
   if (message.error) {
+    const error_div = document.getElementById("error");
+    error_div.classList.add("p-3");
+    const message_para = document.getElementById("error");
     message_para.textContent = message.error;
+  } else if (message.invalidID) {
+    document.location.href = "index.php";
   }
 };
 
