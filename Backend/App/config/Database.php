@@ -45,85 +45,48 @@ class Database
 
 
   /**
-   * getNewInstance
-   *
-   * @return self
-   */
-  public static function getNewInstance(): self
-  {
-    return new Database();
-  }
-
-
-  /**
    * read
-   *
+   * read on the DB
    * @param  string $query
    * @param  array $data
-   * @param  int $method
-   * @return bool|array
+   * @return array|bool
    */
-  public function read(string $query,  array $data = array(), int $method = PDO::FETCH_ASSOC): bool|array
+  public function read(string $query, array $data = array()): array|bool
   {
     $statement = $this->PDOInstance->prepare($query);
     $result = $statement->execute($data);
 
     if ($result) {
-      $data = $statement->fetchAll($method);
+      $data = $statement->fetchAll(PDO::FETCH_OBJ);
+
       if (is_array($data) && count($data) > 0) {
         return $data;
       }
     }
-
     return false;
   }
 
-    //  /**
-    //  * read
-    //  * read on the DB
-    //  * @param  string $query
-    //  * @param  array $data
-    //  * @param  bool $single
-    //  * @return array|bool
-    //  */
-    // public function read(string $query, array $data = array()): array|bool
-    // {
-    //     $statement = $this->PDOInstance->prepare($query);
-    //     $result = $statement->execute($data);
 
-    //     if ($result) {
-    //         $data = $statement->fetchAll(PDO::FETCH_OBJ);
+  /**
+   * readOneRow
+   * read one row on the DB
+   * @param  string $query
+   * @param  array $data
+   * @return object|bool
+   */
+  public function readOneRow(string $query, array $data = array()): object|bool
+  {
+    $statement = $this->PDOInstance->prepare($query);
+    $result = $statement->execute($data);
 
-    //         if (is_array($data) && count($data) > 0) {
-    //             return $data;
-    //         }
-    //     }
-    //     return false;
-    // }
-
-
-    /**
-     * read
-     * read on the DB
-     * @param  string $query
-     * @param  array $data
-     * @return object|bool
-     */
-    public function readOneRow(string $query, array $data = array()): object|bool
-    {
-        $statement = $this->PDOInstance->prepare($query);
-        $result = $statement->execute($data);
-
-        if ($result) {
-            $data = $statement->fetch(PDO::FETCH_OBJ);
-            if (is_object($data)) {
-                return $data;
-            }
-        }
-        return false;
+    if ($result) {
+      $data = $statement->fetch(PDO::FETCH_OBJ);
+      if (is_object($data)) {
+        return $data;
+      }
     }
-
-
+    return false;
+  }
 
 
   /**
@@ -143,16 +106,5 @@ class Database
     }
 
     return false;
-  }
-
-
-  /**
-   * getLastInsertId
-   *
-   * @return int
-   */
-  public function getLastInsertId(): int
-  {
-    return $this->PDOInstance->lastInsertId();
   }
 }

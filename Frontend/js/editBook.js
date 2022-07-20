@@ -16,7 +16,7 @@ const putValueInput = (book) => {
   title_input.value = book.title;
 
   const status_input = document.getElementById("status");
-  book.isRead ? (status_input.checked = true) : null;
+  book.status ? (status_input.checked = true) : null;
 };
 
 const editBook_form = document.getElementById("editBook");
@@ -32,7 +32,7 @@ const getValueEditForm = () => {
   clearMessage();
   title = document.getElementById("title").value;
   author = document.getElementById("author").value;
-  isRead = document.getElementById("status").checked;
+  status = document.getElementById("status").checked;
 
   if (title == "" || author == "") {
     displayError("Please fill all the inputs");
@@ -42,7 +42,7 @@ const getValueEditForm = () => {
   data = {
     title: title,
     author: author,
-    isRead: isRead,
+    status: status,
   };
 
   console.log(data);

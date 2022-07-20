@@ -8,6 +8,7 @@ class Book
 {
     private Database $db;
 
+
     /**
      * __construct
      *
@@ -22,13 +23,14 @@ class Book
     /**
      * getAllBooks
      *
-     * @return array
+     * @return array|bool
      */
-    public function getAllBooks(): array
+    public function getAllBooks(): array|bool
     {
         $query = "SELECT * FROM books";
         return $this->db->read($query);
     }
+
 
     /**
      * createBook
@@ -59,6 +61,7 @@ class Book
         return $book;
     }
 
+
     /**
      * updateBook
      *
@@ -67,13 +70,12 @@ class Book
      */
     public function updateBook(object $book): bool
     {
-        $query  = "UPDATE books SET title = :title, author = :author, isRead = :isRead WHERE id_books = :idBook";
+        $query  = "UPDATE books SET title = :title, author = :author, status = :status WHERE id_books = :idBook";
         $data['idBook'] = htmlspecialchars($book->idBook);
         $data['title'] = htmlspecialchars($book->title);
         $data['author'] = htmlspecialchars($book->author);
-        $data['isRead'] =  $book->isRead ? 1 : 0;
-        $result = $this->db->write($query, $data);
-        return $result;
+        $data['status'] =  $book->status ? 1 : 0;
+        return $this->db->write($query, $data);
     }
 
 

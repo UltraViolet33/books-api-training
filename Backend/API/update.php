@@ -12,7 +12,7 @@ $data = json_decode(file_get_contents("php://input"));
 $errorMesg = array('error' => "Error, book notf updated");
 $succesMsg = array('success' => "Book updated");
 
-if (empty($data->author) || empty($data->title) || !is_numeric($data->idBook) || !isset($data->isRead)) {
+if (empty($data->author) || empty($data->title) || !is_numeric($data->idBook) || !isset($data->status)) {
     echo json_encode($errorMesg);
     return;
 }
