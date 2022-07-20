@@ -8,45 +8,29 @@ class Book
 {
     private Database $db;
 
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
 
+
     /**
      * getAllBooks
      *
-     * @return array
+     * @return array|bool
      */
-    public function getAllBooks(): array
+    public function getAllBooks(): array|bool
     {
-        $query = "SELECT * FROM books 
-        INNER JOIN books_categories ON books.id_books = books_categories.id_books 
-        INNER JOIN categories ON books_categories.id_categories = categories.id_categories";
-        $books = $this->db->read($query);
-        $booksArray = [];
-
-        $ids = [];
-
-        foreach ($books as $book) {
-            extract($book);
-            if (array_search($id_books, $ids)) {
-                $key = array_search($id_books, array_column($booksArray, 'id_book'));
-                $booksArray[$key]['categories'][] = $name;
-            } else {
-                $bookArray = [];
-                $bookArray['id_book'] = $id_books;
-                $bookArray['title'] = $title;
-                $bookArray['author'] = $author;
-                $bookArray['isRead'] = $isRead;
-                $bookArray['categories'] = [$name];
-                array_push($booksArray, $bookArray);
-            }
-
-            $ids[] = $id_books;
-        }
-        return $booksArray;
+        $query = "SELECT * FROM books";
+        return $this->db->read($query);
     }
+
 
     /**
      * createBook
@@ -57,18 +41,10 @@ class Book
      */
     public function createBook(string $title, string $author): bool
     {
-        if (!is_string($author) && !is_string($title)) {
-            return false;
-        }
-
         $query = "INSERT INTO books SET title = :title, author = :author";
-        $data['title'] = $title;
-        $data['author'] = $author;
-        $this->db->write($query, $data);
-        $bookId = $this->db->getLastInsertId();
-
-        $query = "INSERT INTO books_categories SET id_books = $bookId, id_categories = 1";
-        return $this->db->write($query);
+        $data['title'] = htmlspecialchars($title);
+        $data['author'] = htmlspecialchars($author);
+        return $this->db->write($query, $data);
     }
 
 
@@ -76,40 +52,30 @@ class Book
      * getOneBook
      *
      * @param  int $idBook
-     * @return bool|array
+     * @return bool|object
      */
-    public function getOneBook(int $idBook): bool|array
+    public function getOneBook(int $idBook): bool|object
     {
-        $query = "SELECT * FROM books 
-        INNER JOIN books_categories 
-        ON books.id_books = books_categories.id_books 
-        INNER JOIN categories 
-        ON books_categories.id_categories = categories.id_categories 
-        WHERE books.id_books = :idBook LIMIT 1";
-
-        $data['idBook'] = $idBook;
-        $book =  $this->db->read($query, $data);
-
+        $query = "SELECT * FROM books WHERE id_books = :idBook LIMIT 1";
+        $book =  $this->db->readOneRow($query, ["idBook" => $idBook]);
         return $book;
     }
+
 
     /**
      * updateBook
      *
-     * @param  string $title
-     * @param  string $author
-     * @param  int $idBook
+     * @param  object $book
      * @return bool
      */
-    public function updateBook(string $title, string $author, int $idBook): bool
+    public function updateBook(object $book): bool
     {
-        $query  = "UPDATE books SET title = :title, author = :author WHERE id_books = :idBook";
-        $data['idBook'] = $idBook;
-        $data['title'] = $title;
-        $data['author'] = $author;
-        $result = $this->db->write($query, $data);
-
-        return $result;
+        $query  = "UPDATE books SET title = :title, author = :author, status = :status WHERE id_books = :idBook";
+        $data['idBook'] = htmlspecialchars($book->idBook);
+        $data['title'] = htmlspecialchars($book->title);
+        $data['author'] = htmlspecialchars($book->author);
+        $data['status'] =  $book->status ? 1 : 0;
+        return $this->db->write($query, $data);
     }
 
 
