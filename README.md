@@ -1,4 +1,4 @@
-# API BOOKS PHP TRAINING
+# Books API Training
 
 ##  - Project Description
 
