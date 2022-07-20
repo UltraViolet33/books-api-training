@@ -1,13 +1,16 @@
+// Get the id from the URL
 IDbook = extractParamsFromUrl("id");
 
 if (!IDbook) {
   document.location.href = "index.php";
 }
 
+// Get the book from its id
 fetch(urlAPI + "single.php?id=" + IDbook)
   .then((reponse) => reponse.json())
   .then((response) => putValueInput(response));
 
+// Put the book data in the form inputs
 const putValueInput = (book) => {
   const author_input = document.getElementById("author");
   author_input.value = book.author;
@@ -18,6 +21,8 @@ const putValueInput = (book) => {
   const status_input = document.getElementById("status");
   book.status ? (status_input.checked = true) : null;
 };
+
+// EDIT A BOOK
 
 const editBook_form = document.getElementById("editBook");
 
@@ -45,11 +50,10 @@ const getValueEditForm = () => {
     status: status,
   };
 
-  console.log(data);
-
   return data;
 };
 
+// DELETE A BOOK
 const formDelete = document.getElementById("deleteBook");
 
 formDelete.addEventListener("submit", function (event) {

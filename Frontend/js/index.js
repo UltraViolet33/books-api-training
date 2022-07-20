@@ -1,3 +1,5 @@
+
+// Get the data from the API
 fetch(urlAPI)
   .then((res) => res.json())
   .then((books) => displayBooks(books))
@@ -5,6 +7,7 @@ fetch(urlAPI)
     displayError("An error occured, please check your internet connexion")
   );
 
+  // Display all books
 const displayBooks = (books) => {
   const booksHTML = books.map((book) => {
     let status = book.status ? "Read" : "Not Read yet";

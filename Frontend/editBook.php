@@ -1,4 +1,4 @@
-<?php 
+<?php
 $titlePage = "Edit a Book";
 require_once "./inc/header.php";
 $script = 'editBook.js';
@@ -40,4 +40,4 @@ $script = 'editBook.js';
     </div>
 </div>
 </main>
-<?php require_once("./inc/footer.php") ?>
+<?php require_once "./inc/footer.php"; ?>

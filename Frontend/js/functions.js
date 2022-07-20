@@ -1,9 +1,11 @@
+// Display a error message
 const displayError = (message) => {
   const errorr_div = document.getElementById("error");
   errorr_div.classList.add("p-3");
   errorr_div.textContent = message;
 };
 
+// Display the message from the backend
 const displayMsgBack = (message) => {
   if (message.success) {
     document.location.href = "index.php";
@@ -20,6 +22,7 @@ const displayMsgBack = (message) => {
   }
 };
 
+// Post data to the backend
 const postData = (data, path) => {
   fetch(urlAPI + path, {
     method: "POST",
